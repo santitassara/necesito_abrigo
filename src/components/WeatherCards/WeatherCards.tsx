@@ -39,10 +39,14 @@ export default function WeatherCards(weather:any) {
   
   const next6Hours = weatherContext?.forecastWeatherData.list  && weatherContext?.forecastWeatherData?.list[1]?.main;
   const next9Hours = weatherContext?.forecastWeatherData.list  && weatherContext?.forecastWeatherData?.list[2]?.main;
-  const tomorrow = weatherContext?.forecastWeatherData.list  && weatherContext?.forecastWeatherData?.list[4]?.main;
-  const tomorrowIcon = weatherContext?.forecastWeatherData.list  && weatherContext?.forecastWeatherData?.list[4]?.weather[0]?.icon;
-  const tomorrowDescription = weatherContext?.forecastWeatherData.list  && weatherContext?.forecastWeatherData?.list[4]?.weather[0]?.description;
-  const tomorrowTemp =weatherContext?.forecastWeatherData.list  && convertToCelsius(weatherContext?.forecastWeatherData?.list[4]?.main?.temp_max) ;
+  const tomorrow = weatherContext?.forecastWeatherData.list  && weatherContext?.forecastWeatherData?.list[3]?.main;
+  console.log(weatherContext?.forecastWeatherData.list  && weatherContext?.forecastWeatherData?.list[2]);
+  
+  const tomorrowIcon = weatherContext?.forecastWeatherData.list  && weatherContext?.forecastWeatherData?.list[1]?.weather[0]?.icon;
+  const tomorrowDescription = weatherContext?.forecastWeatherData.list  && weatherContext?.forecastWeatherData?.list[3]?.weather[0]?.description;
+  const tomorrowTemp =weatherContext?.forecastWeatherData.list  && convertToCelsius(weatherContext?.forecastWeatherData?.list[3]?.main?.temp_max);
+  const tomorrowWind = weatherContext?.forecastWeatherData.list  && weatherContext?.forecastWeatherData?.list[3]?.wind.speed;
+
   const tomorrowIconUrl = `http://openweathermap.org/img/w/${tomorrowIcon}.png`;
 
 
@@ -82,8 +86,8 @@ export default function WeatherCards(weather:any) {
           <div className={classes["cardGroup-parragraph"]}>
             <h3>{convertToCelsius(tomorrow?.temp) < needJacket ? <b>SI</b> : <b>NO</b>}</h3>
             <p>{tomorrowDescription?.charAt(0)?.toUpperCase() + description?.slice(1)}</p>
-            <p>Temperatura Máxima: {Math.round(temp)} C°</p>
-            <p>Viento: {wind} km/h</p>
+            <p>Temperatura Máxima: {Math.round(tomorrowTemp)} C°</p>
+            <p>Viento: {tomorrowWind} km/h</p>
             <p>LLuvia:</p>
           </div>
         </div>

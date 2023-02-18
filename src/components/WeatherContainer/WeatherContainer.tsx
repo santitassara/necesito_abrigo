@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useWeatherContext } from '../../context/weatherContext';
-import { getCurrentWeather, getForecastWeather, getForecastWeatherOff } from '../api/weatherApi';
+import { getCurrentWeather, getDailyWeatherOff, getForecastWeather, getForecastWeatherOff } from '../api/weatherApi';
 import SpinnerComp from '../SpinnerComp/SpinnerComp';
 import WeatherCards from "../WeatherCards/WeatherCards"
 import classes from "../WeatherContainer/WeatherContainer.module.scss";
@@ -27,8 +27,9 @@ function WeatherContainer() {
           if (location) {
             const lat = location.coords.latitude;
             const lon = location.coords.longitude;
-            getCurrentWeather(lat, lon, weatherContext.setCurrentWeatherData, weatherContext.setIsLocal);
+           // getCurrentWeather(lat, lon, weatherContext.setCurrentWeatherData, weatherContext.setIsLocal);
             getForecastWeatherOff(lat, lon, weatherContext.setForecastWeatherData, weatherContext.setIsLocal )
+            getDailyWeatherOff(lat, lon, weatherContext.setCurrentWeatherData, weatherContext.setIsLocal)
           };
         });
       }
@@ -41,7 +42,7 @@ function WeatherContainer() {
   return (
     <div className={classes["weatherContainer"]}>
       <div className={classes["weatherContainer-imgContainer"]}>
-        <img className={classes["weatherContainer-img"]} src="./img/Jacket.png" alt='Jacket'/>
+        <img className={classes["weatherContainer-img"]} src="./img/Jacket.jpg" alt='Jacket'/>
       </div>
       <div className={classes["weatherContainer-cards"]} >
 

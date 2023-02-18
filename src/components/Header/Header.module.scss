@@ -1,0 +1,22 @@
+
+.headerContainer{
+    background-color: rgb(31, 47, 99);
+    box-shadow: inset 0 -3em 3em rgba(0,0,0,0.1),
+    
+    0.3em 0.3em 1em rgba(0,0,0,0.3);
+
+    &-nav{
+        display: flex;
+        justify-content: space-between;
+    }
+   
+    .navLink{
+        color:white;
+    }
+    .nav{
+        display: flex;
+        justify-content: space-between;
+        color:red;
+    }
+    
+}

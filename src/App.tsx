@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import{BrowserRouter, Routes, Route} from "react-router-dom"
+import Header from "./components/Header/Header"
+import Footer from "./components/Footer/Footer"
+import Home from "./pages/Home/Home";
+import './App.scss';
+import { WeatherContextProvider } from "./context/weatherContext";
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  
+    <WeatherContextProvider>
+    <BrowserRouter>
+    
+      
+        <Header />
+        
+          <Routes>
+            <Route path="/" element={<Home/>}/>
+            {/* <Route path="/movie-detail" element={<MovieDetailView/>}/>  */}
+            {/* <Route exact path="/category/:categoryId" element={<Category/>}/> */}
+            {/* <Route exact path="/cart" element={<Cart/>}/> */}
+            {/* <Route exact path="/checkout" element={<Checkout/>}/> */}
+            {/* <Route exact path="*" element={<div>404</div>}/>  */}
+          </Routes>
+          <Footer/>
+          
+      
+    </BrowserRouter>
+    </WeatherContextProvider>
+    
+  )
 }
 
 export default App;

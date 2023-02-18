@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Gajraj+One&family=Palanquin:wght@300&display=swap');
+
+
+.cardGroup{
+  width: 60vw;
+  display: flex;
+  justify-content: space-around;
+  font-family: 'Palanquin', sans-serif;
+ 
+  
+  h2{
+    font-size: 1.5em;
+  }
+
+  &-card{
+    display: flex;
+    align-items: center;
+  }
+  &-parragraph{
+    p{
+      margin:0;
+    }
+  }
+  &-nextHours{
+   p{ margin: 0};
+  }
+  &-tomorrow{
+    display: flex;
+  }
+  &-iconImg{
+    height: 5em;
+    width: 5em;
+  }
+  &-title{
+    text-align: start;
+  }
+}

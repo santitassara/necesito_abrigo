@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Gajraj+One&family=Palanquin:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Prompt:wght@300&display=swap');
+
+.yesContainer{
+  display: flex;
+  flex-direction: column;
+
+  &-title{
+    font-family: 'Prompt', sans-serif;
+    //font-weight: bolder;
+    font-size: 8em;
+    margin: 0;
+    color: rgb(74, 74, 74);
+  }
+  &-frase{
+    font-size: 1.3em;
+    font-family: 'Palanquin', sans-serif;
+
+  }
+}

@@ -1,16 +1,18 @@
 
 
 .weatherContainer{
-  height: 80vh;
-  width: 100vw;
+  height: 74vh;
+  //width: 80vw;
   display: flex;
   justify-content: center;
   align-items: center;
 
   &-imgContainer{
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: flex-end;
-    width: 28vw;
+    //width: 25vw;
    
 
   }

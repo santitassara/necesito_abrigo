@@ -8,11 +8,16 @@ type WeatherContextType = {
     setCurrentWeatherData: any,
     forecastWeatherData: LocalWeather ,
     setForecastWeatherData:any,
+    dailyWeatherData:any,
+    setDailyWeatherData:any,
     titleSearch:string,
     setTitleSearch:any,
-    search:string,
+    search:any,
     setSearch:any,
-    
+    citySearch:any,
+    setCitySearch:any,
+    topTenCities:any,
+    setTopTenCities:any,
 }
 
 type Props = {
@@ -23,10 +28,13 @@ export const WeatherContext = React.createContext<null | WeatherContextType>(nul
 
 
 export const WeatherContextProvider = ({ children }: Props) =>{
-    const [ search, setSearch ]=React.useState(" ");
+    const [ search, setSearch ]=React.useState("");
     const [isLocal, setIsLocal] = React.useState (Boolean || undefined);
     const [currentWeatherData, setCurrentWeatherData] = React.useState (Object || undefined);
     const [forecastWeatherData, setForecastWeatherData] = React.useState (Object || undefined);
+    const [dailyWeatherData, setDailyWeatherData] = React.useState (Object || undefined);
+    const [citySearch, setCitySearch] = React.useState (Array || undefined);
+    const [topTenCities, setTopTenCities] = React.useState ([]);
     const [titleSearch, setTitleSearch]=React.useState("");
     
     return (
@@ -37,10 +45,16 @@ export const WeatherContextProvider = ({ children }: Props) =>{
             setForecastWeatherData,
             currentWeatherData,
             setCurrentWeatherData,
+            dailyWeatherData,
+            setDailyWeatherData,
             titleSearch,
             setTitleSearch,
             search,
-            setSearch
+            setSearch,
+            citySearch,
+            setCitySearch,
+            topTenCities,
+            setTopTenCities,
         }}>{children}</WeatherContext.Provider>
     )
 }

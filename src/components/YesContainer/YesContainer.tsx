@@ -11,8 +11,8 @@ export default function YesContainer(WeatherDataProps:Weather){
 
 const {currentWeatherData, forecastWeatherData} = WeatherDataProps;
 
-console.log(currentWeatherData?.main);
-console.log(forecastWeatherData);
+//console.log(currentWeatherData?.main);
+//console.log(forecastWeatherData);
 const date = new Date();
 const weekDays = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado"]
 const dayName = weekDays[date.getDay()];
@@ -20,8 +20,8 @@ const dayNumber = date.getDate()
 const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 const monthName = months[date.getMonth()];
 const time = date.toLocaleTimeString();
-const city = currentWeatherData.name;
-const country = currentWeatherData.sys.country
+const city = currentWeatherData?.name;
+const country = currentWeatherData?.sys?.country
 
 
 
@@ -30,11 +30,11 @@ const frase:string = `Basados en el clima en ${city}, ${country} en el día ${da
 //console.log(convertToCelsius);
 
 
-const temp = convertToCelsius(currentWeatherData?.main?.temp) ;
+const temp = convertToCelsius(currentWeatherData?.main?.feels_like) ;
 
 return(
   <div className={classes["yesContainer"]}>
-    <h1 className={classes["yesContainer-title"]} >{temp < 18 ? "Yes":"No" } </h1>
+    <h1 className={classes["yesContainer-title"]} >{temp < 18 ? "Si":"No" } </h1>
     <p className={classes["yesContainer-frase"]}>{frase}</p>
 
   </div>

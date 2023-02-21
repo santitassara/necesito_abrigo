@@ -22,7 +22,7 @@ export default function WeatherCards(weather:any) {
   
   //const currentWeatherData = weather;
   
-  const temp = convertToCelsius(weather?.main?.temp) ;
+  const temp = convertToCelsius(weather?.main?.feels_like) ;
   const needJacket = 18;
   const wind =  weather?.wind?.speed;
   console.log(weather.rain)
@@ -40,15 +40,16 @@ export default function WeatherCards(weather:any) {
   const next6Hours = weatherContext?.forecastWeatherData.list  && weatherContext?.forecastWeatherData?.list[1]?.main;
   const next9Hours = weatherContext?.forecastWeatherData.list  && weatherContext?.forecastWeatherData?.list[2]?.main;
   const tomorrow = weatherContext?.forecastWeatherData.list  && weatherContext?.forecastWeatherData?.list[3]?.main;
-  console.log(weatherContext?.forecastWeatherData.list  && weatherContext?.forecastWeatherData?.list[2]);
   
-  const tomorrowIcon = weatherContext?.forecastWeatherData.list  && weatherContext?.forecastWeatherData?.list[1]?.weather[0]?.icon;
-  const tomorrowDescription = weatherContext?.forecastWeatherData.list  && weatherContext?.forecastWeatherData?.list[3]?.weather[0]?.description;
-  const tomorrowTemp =weatherContext?.forecastWeatherData.list  && convertToCelsius(weatherContext?.forecastWeatherData?.list[3]?.main?.temp_max);
-  const tomorrowWind = weatherContext?.forecastWeatherData.list  && weatherContext?.forecastWeatherData?.list[3]?.wind.speed;
-
+  const tomorrowIcon = weatherContext?.dailyWeatherData.daily  && weatherContext?.dailyWeatherData.daily[1]?.weather[0]?.icon;
+  const tomorrowDescription = weatherContext?.dailyWeatherData.daily  && weatherContext?.dailyWeatherData.daily[1]?.weather[0]?.description;
+  const tomorrowTemp =weatherContext?.dailyWeatherData.daily  && convertToCelsius(weatherContext?.dailyWeatherData.daily[1]?.feels_like.day);
+  const tomorrowMinTemp =weatherContext?.dailyWeatherData.daily  && convertToCelsius(weatherContext?.dailyWeatherData.daily[1]?.temp.min);
+  const tomorrowWind = weatherContext?.dailyWeatherData.daily  && weatherContext?.dailyWeatherData.daily[1]?.wind_speed;
+  
   const tomorrowIconUrl = `http://openweathermap.org/img/w/${tomorrowIcon}.png`;
-
+  
+  console.log(convertToCelsius(Math.round(tomorrowTemp)) );
 
 
 
@@ -67,16 +68,15 @@ export default function WeatherCards(weather:any) {
             <p>{description?.charAt(0)?.toUpperCase() + description?.slice(1)}</p>
             <p>Temperatura: {Math.round(temp)} C°</p>
             <p>Viento: {wind} km/h</p>
-            <p>LLuvia:</p>
           </div>
         </div>
       </div>
       <div className={classes["cardGroup-nextHours"]} >
         <h2 className={classes["cardGroup-title"]} >Hoy</h2>
         <div>
-          <p>Proximas 3 Horas {convertToCelsius(next3Hours?.temp) < needJacket ? <b>SI</b> : <b>NO</b>}</p>
-          <p>Proximas 6 Horas {convertToCelsius(next6Hours?.temp)< needJacket ? <b>SI</b> : <b>NO</b>}</p>
-          <p>Proximas 9 Horas {convertToCelsius(next9Hours?.temp) < needJacket ? <b>SI</b> : <b>NO</b>}</p>
+          <p >Proximas 3 Horas {convertToCelsius(next3Hours?.temp) < needJacket ? <b className={classes["cardGroup-nextHours-yes"]}>SI</b> : <b className={classes["cardGroup-nextHours-no"]}>NO</b>}</p>
+          <p>Proximas 6 Horas {convertToCelsius(next6Hours?.temp)< needJacket ? <b className={classes["cardGroup-nextHours-yes"]}>SI</b> : <b className={classes["cardGroup-nextHours-no"]}>NO</b>}</p>
+          <p>Proximas 9 Horas {convertToCelsius(next9Hours?.temp) < needJacket ? <b className={classes["cardGroup-nextHours-yes"]}>SI</b> : <b className={classes["cardGroup-nextHours-no"]}>NO</b>}</p>
         </div>
       </div>
       <div >
@@ -84,11 +84,11 @@ export default function WeatherCards(weather:any) {
         <div className={classes["cardGroup-card"]} >
         <img src={tomorrowIconUrl}alt='iconImg' className={classes["cardGroup-iconImg"]} />
           <div className={classes["cardGroup-parragraph"]}>
-            <h3>{convertToCelsius(tomorrow?.temp) < needJacket ? <b>SI</b> : <b>NO</b>}</h3>
+            <h3>{Math.round(tomorrowTemp) < needJacket ? <b className={classes["cardGroup-nextHours-yes"]}>SI</b> : <b className={classes["cardGroup-nextHours-no"]}>NO</b>}</h3>
             <p>{tomorrowDescription?.charAt(0)?.toUpperCase() + description?.slice(1)}</p>
-            <p>Temperatura Máxima: {Math.round(tomorrowTemp)} C°</p>
+            <p>Temperatura Mínima: {Math.round(tomorrowMinTemp)} C°</p>
+            <p>Sensación térmica: {Math.round(tomorrowTemp)} C°</p>
             <p>Viento: {tomorrowWind} km/h</p>
-            <p>LLuvia:</p>
           </div>
         </div>
       </div>

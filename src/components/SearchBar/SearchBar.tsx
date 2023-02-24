@@ -20,7 +20,7 @@ export default function SearchBar() {
   const weatherContext = useWeatherContext();
   const [focused, setFocused] = useState(false)
   const [focusedForClick, setFocusedForClick] = useState(false)
-  let topTenCities = [];
+ 
 
   // console.log(weatherContext.currentWeatherData);
   // console.log(weatherContext.forecastWeatherData);
@@ -59,7 +59,7 @@ export default function SearchBar() {
     getCurrentWeatherOff(search, weatherContext.setCurrentWeatherData, weatherContext.setIsLocal);
     console.log("click");
     weatherContext.setForecastWeatherData(new Error());
-    weatherContext.setTopTenCities([...weatherContext.search,weatherContext.search])
+   // weatherContext.setTopTenCities([...weatherContext.search,weatherContext.search])
     setSearch("");
     setKeyFocus(0)
 
@@ -99,7 +99,8 @@ export default function SearchBar() {
       if(weatherContext.citySearch.length > 1){
        
         setKeyFocus((c) => (c < weatherContext.citySearch.length - 1 ? c + 1 : c))
-        setSearch(weatherContext.citySearch[keyFocus].LocalizedName)        
+        setSearch(weatherContext.citySearch[keyFocus].LocalizedName)   
+        weatherContext.setSearch(weatherContext.citySearch[keyFocus].LocalizedName)     
       }
     }
     if(e.key === 'ArrowUp'){
@@ -112,16 +113,27 @@ export default function SearchBar() {
 
       return
     }
+    let topCities: any[] = [];
+    const localizedName = weatherContext.citySearch.find((c:any)=>  topCities.push(c.LocalizedName ));
+    console.log(topCities);
+    console.log(localizedName);
+    
     
     if (e.key === 'Enter') {
-      
       getForecastWeather(search, weatherContext.setForecastWeatherData, weatherContext.setIsLocal);
       getCurrentWeatherOff(search, weatherContext.setCurrentWeatherData, weatherContext.setIsLocal);
       getDailyWeatherCity(weatherContext.currentWeatherData.coord.lat, weatherContext.currentWeatherData.coord.lon, weatherContext.setDailyWeatherData);
       setSearch("");
       e.preventDefault();
     setKeyFocus(0)
+    console.log("HEEEEEEEY·$%·$%·$Y%·Y$Y$Y·%·Y$%Y·$Y%·$%Y·$%Y");
+    //console.log(weatherContext.citySearch.find((c:any)=> topCities.push (c.LocalizedName )));
+    console.log(search);
+    
+    console.log(topCities);
+    
 
+    weatherContext.setTopTenCities(...topCities, localizedName)
     }
     
   }

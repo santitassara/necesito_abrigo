@@ -19,6 +19,8 @@ function WeatherContainer() {
     //const cityWeather = weatherContext.weatherData ;
     console.log(weather);
     const search = weatherContext.search;
+    console.log(search);
+    
     //console.log(weather.weather[0]);
     //console.log(weather);
     

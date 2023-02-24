@@ -2,7 +2,7 @@
 
 .weatherContainer{
   height: 74vh;
-  //width: 80vw;
+  width: 98vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,7 +18,7 @@
   }
   
   &-img {
-    height: 30em;
+    height: 65vh;
   }
   &-cards{
     height:60vh ;

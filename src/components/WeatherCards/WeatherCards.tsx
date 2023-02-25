@@ -25,7 +25,7 @@ export default function WeatherCards(weather:any) {
   const temp = convertToCelsius(weather?.main?.feels_like) ;
   const needJacket = 18;
   const wind =  weather?.wind?.speed;
-  console.log(weather.rain)
+  //console.log(weather.rain)
   const local = weatherContext.isLocal;
   //console.log(local);
   //console.log(weatherContext.currentWeatherData?.weather && weatherContext.currentWeatherData?.weather[0]);
@@ -49,7 +49,7 @@ export default function WeatherCards(weather:any) {
   
   const tomorrowIconUrl = `http://openweathermap.org/img/w/${tomorrowIcon}.png`;
   
-  console.log(convertToCelsius(Math.round(tomorrowTemp)) );
+  //console.log(convertToCelsius(Math.round(tomorrowTemp)) );
 
 
 

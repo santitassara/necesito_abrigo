@@ -22,12 +22,6 @@ export default function SearchBar() {
   const [focusedForClick, setFocusedForClick] = useState(false)
  
 
-  // console.log(weatherContext.currentWeatherData);
-  // console.log(weatherContext.forecastWeatherData);
-  // console.log(weatherContext.dailyWeatherData);
-  console.log(weatherContext.citySearch);
-  console.log(search);
-  console.log(weatherContext.search);
 
 
 
@@ -38,8 +32,8 @@ export default function SearchBar() {
   //const search = moviesContext.search;
 
 
-  const handleChange = (e: any) => {
-    //e.preventDefault()
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    e.preventDefault()
     setSearch(e.target.value);
     weatherContext.setSearch(e.target.value);
     console.log(weatherContext.citySearch);
@@ -92,20 +86,42 @@ export default function SearchBar() {
   
   
   const [keyFocus, setKeyFocus] = useState(0)
+  const [searchAutocomplete, setSearchAutocomplete] = useState(false)
 
-  const handleKeyDown = (e: any) => {
+  useEffect(() => {
+    if(search.length > 1){
+    setKeyFocus((c) => (c < weatherContext.citySearch.length - 1 ? c + 1 : c))
+        console.log(weatherContext.citySearch[keyFocus]);
+        
+        setSearch(weatherContext.citySearch[keyFocus]?.LocalizedName)   
+        weatherContext.setSearch(weatherContext.citySearch[keyFocus]?.LocalizedName)     
+        setSearchAutocomplete(true)
+    }
+  }, [weatherContext.citySearch?.length > 1])
+  
+  
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>
+  ): void => {
 
     if (e.key === 'ArrowDown'){
+      
+      
       if(weatherContext.citySearch.length > 1){
        
         setKeyFocus((c) => (c < weatherContext.citySearch.length - 1 ? c + 1 : c))
+        //console.log(weatherContext.citySearch[keyFocus]);
+        
         setSearch(weatherContext.citySearch[keyFocus].LocalizedName)   
         weatherContext.setSearch(weatherContext.citySearch[keyFocus].LocalizedName)     
+        setSearchAutocomplete(true)
       }
     }
     if(e.key === 'ArrowUp'){
      
-     setKeyFocus(c => (c > 0 ? c - 1 : 0));
+     setKeyFocus(c => (c > 0 ? c - 1 : -1));
+     setSearch(weatherContext.citySearch[keyFocus].LocalizedName)   
+     setSearchAutocomplete(true)
    }
 
     if (e.key === 'Escape') {
@@ -120,12 +136,12 @@ export default function SearchBar() {
     
     
     if (e.key === 'Enter') {
-      getForecastWeather(search, weatherContext.setForecastWeatherData, weatherContext.setIsLocal);
-      getCurrentWeatherOff(search, weatherContext.setCurrentWeatherData, weatherContext.setIsLocal);
+      getForecastWeather(searchAutocomplete  ? weatherContext.search : search, weatherContext.setForecastWeatherData, weatherContext.setIsLocal);
+      getCurrentWeatherOff(searchAutocomplete  ? weatherContext.search : search, weatherContext.setCurrentWeatherData, weatherContext.setIsLocal);
       getDailyWeatherCity(weatherContext.currentWeatherData.coord.lat, weatherContext.currentWeatherData.coord.lon, weatherContext.setDailyWeatherData);
       setSearch("");
       e.preventDefault();
-    setKeyFocus(0)
+    setKeyFocus(-1)
     console.log("HEEEEEEEY·$%·$%·$Y%·Y$Y$Y·%·Y$%Y·$Y%·$%Y·$%Y");
     //console.log(weatherContext.citySearch.find((c:any)=> topCities.push (c.LocalizedName )));
     console.log(search);
@@ -165,7 +181,7 @@ export default function SearchBar() {
   
   
   return (
-    <Form className={classes["Aform"]} onKeyDown={handleKeyDown} onSubmit={handleKeyDown}>
+    <Form className={classes["Aform"]} >
       <ToastContainer />
       <div >
 
@@ -176,7 +192,7 @@ export default function SearchBar() {
           aria-label="Search"
           value={search}
           onChange={handleChange}
-          onSubmit={handleKeyDown}
+          onKeyDown={handleKeyDown}
           onFocus={handleOnFocus}
           ref={inputRef} 
           //onBlur={()=>setFocused(false)}

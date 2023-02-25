@@ -37,8 +37,8 @@ export const getCurrentWeather = async (lat: number, lon: number, weatherState: 
   await axios.get(APIURL)
     .then(
       (response) => {
-        console.log("getCurrentWeather");
-        console.log(response);
+        //console.log("getCurrentWeather");
+        //console.log(response);
         weatherState(response.data);
         localState(false);
 
@@ -46,7 +46,7 @@ export const getCurrentWeather = async (lat: number, lon: number, weatherState: 
     )
     .catch(
       (error) => {
-        console.log(error)
+        //console.log(error)
         return error;
       }
     )
@@ -56,14 +56,14 @@ export const getCurrentWeatherOff = async (cityName: string, weatherState: any, 
   await axios.get(APIURL)
     .then(
       (response) => {
-        console.log(response);
+        //console.log(response);
         weatherState(response.data);
         localState(false);
       }
     )
     .catch(
       (error) => {
-        console.log(error)
+        //console.log(error)
         weatherState(error);
         errorToast(error)
         
@@ -76,8 +76,8 @@ export const getForecastWeatherOff = async (lat: number, lon: number, weatherSta
   axios.get(APIURL_CITY)
     .then(
       (response) => {
-        console.log("getForecastWeatherOff");
-        console.log(response)
+        //console.log("getForecastWeatherOff");
+        //console.log(response)
         weatherState(response.data)
         localState(false);
 
@@ -85,7 +85,7 @@ export const getForecastWeatherOff = async (lat: number, lon: number, weatherSta
       )
       .catch(
         (error) => {
-          console.log(error)
+          //console.log(error)
         weatherState(error);
 
           
@@ -98,14 +98,14 @@ export const getForecastWeather = async (cityName: string, weatherState: any, lo
   axios.get(APIURL_CITY)
     .then(
       (response) => {
-        console.log(response)
+        //console.log(response)
         weatherState(response.data)
         localState(false);
       }
     )
     .catch(
       (error) => {
-        console.log(error)
+        //console.log(error)
         weatherState(error);
         
 
@@ -117,7 +117,7 @@ export const getDailyWeatherCity = async (lat: number, lon: number, weatherState
   axios.get(APIURL_CITY)
     .then(
       (response) => {
-        console.log(response)
+        //console.log(response)
         weatherState(response.data)
         
         
@@ -125,7 +125,7 @@ export const getDailyWeatherCity = async (lat: number, lon: number, weatherState
     )
     .catch(
       (error) => {
-        console.log(error)
+        //console.log(error)
         weatherState(error);
       
 
@@ -138,15 +138,15 @@ export const getDailyWeatherOff = async (lat: number, lon: number, weatherState:
   axios.get(APIURL_CITY)
     .then(
       (response) => {
-        console.log("DAILYYYYYY");
-        console.log(response)
+        //console.log("DAILYYYYYY");
+        //console.log(response)
         weatherState(response.data)
        
       }
     )
     .catch(
       (error) => {
-        console.log(error)
+        //console.log(error)
         weatherState(error);
 
       }

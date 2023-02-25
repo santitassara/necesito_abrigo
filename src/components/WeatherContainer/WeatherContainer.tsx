@@ -14,12 +14,12 @@ function WeatherContainer() {
     const weatherContext = useWeatherContext();
     const local = weatherContext.isLocal;
     const weather = weatherContext.currentWeatherData;
-    console.log( weatherContext.forecastWeatherData.message );  
+   
     //const localWeather = weatherContext.localWeatherData  ;
     //const cityWeather = weatherContext.weatherData ;
-    console.log(weather);
+  
     const search = weatherContext.search;
-    console.log(search);
+
     
     //console.log(weather.weather[0]);
     //console.log(weather);
@@ -38,7 +38,7 @@ function WeatherContainer() {
       }
     }, []);
   
-    console.log(weatherContext.dailyWeatherData);
+   
     
   //const iconCode = weather.list[0].weather[0].icon
   //const iconUrl = `http://openweathermap.org/img/w/${iconCode}.png`;

@@ -9,13 +9,13 @@ export default function Footer(){
   const [cityQueries, setCityQueries] = useState([])
   const weatherContext = useWeatherContext();
   
-  console.log(weatherContext?.topTenCities);
+  //console.log(weatherContext?.topTenCities);
   cities=[...cityQueries,weatherContext?.topTenCities]
-  console.log(cities);
+  //console.log(cities);
   
   let prueba:any=[]
 
-  console.log(prueba=([...cities,prueba]));
+  //console.log(prueba=([...cities,prueba]));
   
   
   useEffect(() => {
@@ -24,11 +24,11 @@ export default function Footer(){
   }, [weatherContext?.topTenCities])
   
 
-  console.log(cityQueries);
+  //console.log(cityQueries);
 
   let findDuplicates = (arr: any[]) => arr?.filter((item, index) => arr?.indexOf(item) !== index)
 
-  console.log(findDuplicates(cityQueries)) // All duplicates
+  //console.log(findDuplicates(cityQueries)) // All duplicates
   
 
   return(

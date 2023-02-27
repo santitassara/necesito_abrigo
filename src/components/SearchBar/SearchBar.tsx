@@ -1,22 +1,26 @@
 import { Link } from "react-router-dom"
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useEffect, useRef, useState } from "react"
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { getCurrentWeather, getCurrentWeatherOff, getForecastWeather } from "../api/weatherApi";
-import {useWeatherContext} from "../../context/weatherContext"
+import { getCurrentWeather, getCurrentWeatherOff, getDailyWeatherCity, getForecastWeather } from "../api/weatherApi";
+import { useWeatherContext } from "../../context/weatherContext"
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { getCurrentCity } from "../api/citiesApi";
+import classes from "./SearchBar.module.scss"
+import FormDropdown from "./FormDropdown/FormDropdown";
 
+export default function SearchBar() {
+  
+  const [search, setSearch] = useState("")
 
-export default function SearchBar(){
+  const [weather, setWeather] = useState([]);
+  //console.log(weather);
 
-const [ search, setSearch ]=useState(" ")
-
-const [weather, setWeather] = useState([]);  
-  console.log(weather);
-    
-const weatherContext = useWeatherContext();
-
-console.log(weatherContext.currentWeatherData);
-console.log(weatherContext.forecastWeatherData);
+  const weatherContext = useWeatherContext();
+  const [focused, setFocused] = useState(false)
+  const [focusedForClick, setFocusedForClick] = useState(false)
+ 
 
 
 
@@ -26,48 +30,201 @@ console.log(weatherContext.forecastWeatherData);
   //const setMoviesTitle = moviesContext.setTitleSearch;
   //const setSearch = moviesContext.setSearch;
   //const search = moviesContext.search;
+
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    e.preventDefault()
+    setSearch(e.target.value);
+    weatherContext.setSearch(e.target.value);
+    console.log(weatherContext.citySearch);
+    //weatherContext.citySearch.city.name.filter((u:any)=>u.city.name === search)
+    // console.log(search)
+  }
+  useEffect(() => {
+
+    getCurrentCity(search, weatherContext.setCitySearch);
+
+
+  }, [search])
+
   
+  const handleOnClick = () => {
+    getForecastWeather(search, weatherContext.setForecastWeatherData, weatherContext.setIsLocal);
+    getCurrentWeatherOff(search, weatherContext.setCurrentWeatherData, weatherContext.setIsLocal);
+    console.log("click");
+    weatherContext.setForecastWeatherData(new Error());
+   // weatherContext.setTopTenCities([...weatherContext.search,weatherContext.search])
+    setSearch("");
+    setKeyFocus(-1)
 
-    const handleChange = (e:any) =>{
-       //e.preventDefault()
-      setSearch(e.target.value);
-      weatherContext.setSearch(e.target.value);
-     // console.log(search)
-    }
+  }
+  
+  useEffect(() => {
+    
+    getDailyWeatherCity(weatherContext?.currentWeatherData.coord?.lat, weatherContext?.currentWeatherData?.coord?.lon, weatherContext.setDailyWeatherData);
+    
+    
+  }, [weatherContext?.currentWeatherData.coord?.lat, weatherContext?.currentWeatherData?.coord?.lon])
+  
+  const handleOnAutocompleteClick = (e: any, cityName: any) => {
+    setSearch(cityName);
+    getForecastWeather(cityName, weatherContext.setForecastWeatherData, weatherContext.setIsLocal);
+    getCurrentWeatherOff(cityName, weatherContext.setCurrentWeatherData, weatherContext.setIsLocal);
+    getDailyWeatherCity(weatherContext.currentWeatherData.coord.lat, weatherContext.currentWeatherData.coord.lon, weatherContext.setDailyWeatherData);
+    console.log("click");
+    weatherContext.setCitySearch([])
+    setSearch("");
+    setFocusedForClick(true)
+    setFocused(false)
+    setKeyFocus(-1)
+    
+  }
+  
+  const handleOnFocus = () => {
+    setFocused(true)
+  }
+  
+  
+  const [keyFocus, setKeyFocus] = useState(-1)
+  const [searchAutocomplete, setSearchAutocomplete] = useState(false)
 
-    const handleOnClick = () =>{
+  // useEffect(() => {
+  //   if(search?.length > 1){
+  //   setKeyFocus((c) => (c < weatherContext.citySearch.length - 1 ? c + 1 : c))
+  //       console.log(weatherContext.citySearch[keyFocus]);
         
-      getForecastWeather(search, weatherContext.setForecastWeatherData, weatherContext.setIsLocal);
-      getCurrentWeatherOff(search, weatherContext.setCurrentWeatherData, weatherContext.setIsLocal);
-      console.log("click");
-      
-      
-    }
-
-  //  const filterMovies = (search:string)=>{
-  //   const searchResult:any = allMoviesTittle.filter((movie)=>{
-  //     if(movie.toString().toLowerCase().includes(search.toLowerCase())
-  //     ){
-  //       return movie;
-  //     }
-  //   });
-  //   setSearchMovies(searchResult);
-  // }
+  //       setSearch(weatherContext.citySearch[keyFocus]?.LocalizedName)   
+  //       weatherContext.setSearch(weatherContext.citySearch[keyFocus]?.LocalizedName)     
+  //       setSearchAutocomplete(true)
+  //   }
+  // }, [weatherContext.citySearch?.length > 1])
   
+  
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>
+  ): void => {
+
+    if (e.key === 'ArrowDown'){
+      
+      
+      if(weatherContext.citySearch.length > 1){
+       console.log(weatherContext.citySearch?.length - 1 )
+        setKeyFocus(c => (c < weatherContext.citySearch?.length - 1 ? c + 1 : c))
+        //console.log(weatherContext.citySearch[keyFocus]);
+        //console.log(keyFocus)
+        //setSearch(weatherContext.citySearch[keyFocus]?.LocalizedName)   
+        //weatherContext.setSearch(weatherContext.citySearch[keyFocus].LocalizedName)     
+        setSearchAutocomplete(true)
+      }
+    }
+    if(e.key === 'ArrowUp'){
+     
+     setKeyFocus(c => (c >= 0 && c <= weatherContext.citySearch.length ? c - 1 : c));
+     console.log(keyFocus)
+     //setSearch(weatherContext.citySearch[keyFocus].LocalizedName)   
+     setSearchAutocomplete(true)
+   }
+
+    if (e.key === 'Escape') {
+      setKeyFocus(-1)
+
+      return
+    }
+    let topCities: any[] = [];
+    const localizedName = weatherContext.citySearch?.find((c:any)=>  topCities.push(c.LocalizedName ));
+    //console.log(topCities);
+    //console.log(localizedName);
+    
+    
+    if (e.key === 'Enter') {
+      if (keyFocus > -1){
+      getForecastWeather(searchAutocomplete  ? weatherContext.search : search, weatherContext.setForecastWeatherData, weatherContext.setIsLocal);
+      getCurrentWeatherOff(searchAutocomplete  ? weatherContext.search : search, weatherContext.setCurrentWeatherData, weatherContext.setIsLocal);
+      getDailyWeatherCity(weatherContext.currentWeatherData.coord.lat, weatherContext.currentWeatherData.coord.lon, weatherContext.setDailyWeatherData);
+      setSearch("");
+      weatherContext.setCitySearch([])
+      }
+      e.preventDefault();
+    setKeyFocus(-1)
+    //console.log("HEEEEEEEY·$%·$%·$Y%·Y$Y$Y·%·Y$%Y·$Y%·$%Y·$%Y");
+    //console.log(weatherContext.citySearch.find((c:any)=> topCities.push (c.LocalizedName )));
+    //console.log(search);
+    
+   // console.log(topCities);
+    
+
+    weatherContext.setTopTenCities(...topCities, localizedName)
+    }
+    
+  }
+  
+  useEffect(() => {
+    //console.log(weatherContext.citySearch[keyFocus]?.LocalizedName)
+          //setSearch(weatherContext.citySearch[keyFocus]?.LocalizedName)   
+        weatherContext.setSearch(weatherContext.citySearch[keyFocus]?.LocalizedName)    
+  }, [keyFocus])
+  
+  
+  //useEffect(() => console.log(weather), [weather]);
+  
+  let searchProps = {
+    focused:focused,
+    handleOnAutocompleteClick:handleOnAutocompleteClick,
+    setFocused:setFocused,
+    keyFocus : keyFocus,
+    
+  }
+  let inputRef = useRef<HTMLInputElement | null>(null);
+  useEffect(() => {
+   document.addEventListener("click",(e)=>{
+    const target = e.target as HTMLElement;
+   // e.stopPropagation();
+    if(inputRef.current?.contains(target)){
+
+      setFocused(true)
+    }else{
+      setFocused(false)
+    }
+    
+   })
+  }, [])
+  
+  
+  return (
+    <Form className={classes["Aform"]} >
+      <ToastContainer />
+      <div >
+
+        <Form.Control
+          type="search"
+          placeholder="Search"
+          className={classes["form"]}
+          aria-label="Search"
+          value={search}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          onFocus={handleOnFocus}
+          ref={inputRef} 
+          //onBlur={()=>setFocused(false)}
+        />
+
+        {/* <div className={focused ? classes["form-under"]:classes["form-transparent"]}></div> */}
+        {/* {
+          <div  className={focused ? classes["form-under"]:classes["form-transparent"]}>
+            {weatherContext.citySearch?.length > 2 && weatherContext.citySearch?.map((item: any) =>
+              <div onClick={(e) => handleOnAutocompleteClick(e, item.LocalizedName)}
+                className={classes["navDropDown-container"]}>{item.LocalizedName}, {item.Country.LocalizedName}</div>)}
+          <div>
+            <p>{weatherContext?.currentWeatherData?.name}</p>
+            <p>{weatherContext?.currentWeatherData?.weather[0]?.icon}</p>
+
+          </div>
+          </div>} */}
+          <FormDropdown {...searchProps} />
+      </div>
+      <Button onClick={handleOnClick} variant="outline-success">Search</Button>
+    </Form>
 
 
-  return(
-    <Form className="d-flex">
-    <Form.Control
-      type="search"
-      placeholder="Search"
-      className="me-2"
-      aria-label="Search"
-      value={search}
-      onChange={handleChange}
-      onSubmit={handleOnClick}
-    />
-    <Button onClick={handleOnClick} variant="outline-success">Search</Button>
-  </Form>
   )
 }

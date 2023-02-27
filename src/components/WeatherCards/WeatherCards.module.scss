@@ -2,7 +2,7 @@
 
 
 .cardGroup{
-  width: 60vw;
+  width: 50vw;
   display: flex;
   justify-content: space-around;
   font-family: 'Palanquin', sans-serif;
@@ -23,6 +23,12 @@
   }
   &-nextHours{
    p{ margin: 0};
+    &-yes{
+      color:rgb(28, 28, 163) ;
+    }
+    &-no{
+      color: red;
+    }
   }
   &-tomorrow{
     display: flex;
@@ -34,4 +40,5 @@
   &-title{
     text-align: start;
   }
+
 }

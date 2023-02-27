@@ -15,7 +15,7 @@ export default function Header(){
     <>
     <Navbar className={classes["headerContainer"]} expand="lg">
       <Container fluid>
-        <Navbar.Brand  className={classes["navLink"]} href="/">Home</Navbar.Brand>
+        <Navbar.Brand  className={classes["navLink"]} href="/"><img style={{height:"4em"}} src="./JacketIcon.png" alt='Jacket'/></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -24,8 +24,8 @@ export default function Header(){
             navbarScroll
             
           >
-            <Nav.Link href="#action1" className={classes["navLink"]}>Home</Nav.Link>
-            <Nav.Link href="#action2" className={classes["navLink"]}>Link</Nav.Link>
+            {/* <Nav.Link href="#action1" className={classes["navLink"]}> </Nav.Link> */}
+            {/* <Nav.Link href="#action2" className={classes["navLink"]}>Link</Nav.Link> */}
             {/* <NavDropdown title="Link"  id="navbarScrollingDropdown">
               <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action4">

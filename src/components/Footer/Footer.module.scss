@@ -1,8 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Gajraj+One&family=Palanquin:wght@300&display=swap');
+
+
 .footerContainer{
-    height: 15vh;
+    font-family: 'Palanquin', sans-serif;
+    display: flex;
+    justify-content: space-evenly;
+    height: 20vh;
     text-align:center;
-    color: white;
-    background-color: black;
+    color: rgb(0, 0, 0);
+    background-color:rgb(243, 243, 243);
     margin:0em;
     p { margin:0 !important; } 
+    box-shadow: 1em 3em 1em 2.8em rgba(0,0,0,0.1);
 }

@@ -55,7 +55,7 @@ export default function SearchBar() {
     weatherContext.setForecastWeatherData(new Error());
    // weatherContext.setTopTenCities([...weatherContext.search,weatherContext.search])
     setSearch("");
-    setKeyFocus(0)
+    setKeyFocus(-1)
 
   }
   
@@ -76,7 +76,7 @@ export default function SearchBar() {
     setSearch("");
     setFocusedForClick(true)
     setFocused(false)
-    setKeyFocus(0)
+    setKeyFocus(-1)
     
   }
   
@@ -85,19 +85,19 @@ export default function SearchBar() {
   }
   
   
-  const [keyFocus, setKeyFocus] = useState(0)
+  const [keyFocus, setKeyFocus] = useState(-1)
   const [searchAutocomplete, setSearchAutocomplete] = useState(false)
 
-  useEffect(() => {
-    if(search.length > 1){
-    setKeyFocus((c) => (c < weatherContext.citySearch.length - 1 ? c + 1 : c))
-        console.log(weatherContext.citySearch[keyFocus]);
+  // useEffect(() => {
+  //   if(search?.length > 1){
+  //   setKeyFocus((c) => (c < weatherContext.citySearch.length - 1 ? c + 1 : c))
+  //       console.log(weatherContext.citySearch[keyFocus]);
         
-        setSearch(weatherContext.citySearch[keyFocus]?.LocalizedName)   
-        weatherContext.setSearch(weatherContext.citySearch[keyFocus]?.LocalizedName)     
-        setSearchAutocomplete(true)
-    }
-  }, [weatherContext.citySearch?.length > 1])
+  //       setSearch(weatherContext.citySearch[keyFocus]?.LocalizedName)   
+  //       weatherContext.setSearch(weatherContext.citySearch[keyFocus]?.LocalizedName)     
+  //       setSearchAutocomplete(true)
+  //   }
+  // }, [weatherContext.citySearch?.length > 1])
   
   
   const handleKeyDown = (
@@ -108,45 +108,49 @@ export default function SearchBar() {
       
       
       if(weatherContext.citySearch.length > 1){
-       
-        setKeyFocus((c) => (c < weatherContext.citySearch.length - 1 ? c + 1 : c))
+       console.log(weatherContext.citySearch?.length - 1 )
+        setKeyFocus(c => (c < weatherContext.citySearch?.length - 1 ? c + 1 : c))
         //console.log(weatherContext.citySearch[keyFocus]);
-        
-        setSearch(weatherContext.citySearch[keyFocus].LocalizedName)   
-        weatherContext.setSearch(weatherContext.citySearch[keyFocus].LocalizedName)     
+        //console.log(keyFocus)
+        //setSearch(weatherContext.citySearch[keyFocus]?.LocalizedName)   
+        //weatherContext.setSearch(weatherContext.citySearch[keyFocus].LocalizedName)     
         setSearchAutocomplete(true)
       }
     }
     if(e.key === 'ArrowUp'){
      
-     setKeyFocus(c => (c > 0 ? c - 1 : -1));
-     setSearch(weatherContext.citySearch[keyFocus].LocalizedName)   
+     setKeyFocus(c => (c >= 0 && c <= weatherContext.citySearch.length ? c - 1 : c));
+     console.log(keyFocus)
+     //setSearch(weatherContext.citySearch[keyFocus].LocalizedName)   
      setSearchAutocomplete(true)
    }
 
     if (e.key === 'Escape') {
-      setKeyFocus(0)
+      setKeyFocus(-1)
 
       return
     }
     let topCities: any[] = [];
-    const localizedName = weatherContext.citySearch.find((c:any)=>  topCities.push(c.LocalizedName ));
-    console.log(topCities);
-    console.log(localizedName);
+    const localizedName = weatherContext.citySearch?.find((c:any)=>  topCities.push(c.LocalizedName ));
+    //console.log(topCities);
+    //console.log(localizedName);
     
     
     if (e.key === 'Enter') {
+      if (keyFocus > -1){
       getForecastWeather(searchAutocomplete  ? weatherContext.search : search, weatherContext.setForecastWeatherData, weatherContext.setIsLocal);
       getCurrentWeatherOff(searchAutocomplete  ? weatherContext.search : search, weatherContext.setCurrentWeatherData, weatherContext.setIsLocal);
       getDailyWeatherCity(weatherContext.currentWeatherData.coord.lat, weatherContext.currentWeatherData.coord.lon, weatherContext.setDailyWeatherData);
       setSearch("");
+      weatherContext.setCitySearch([])
+      }
       e.preventDefault();
     setKeyFocus(-1)
-    console.log("HEEEEEEEY·$%·$%·$Y%·Y$Y$Y·%·Y$%Y·$Y%·$%Y·$%Y");
+    //console.log("HEEEEEEEY·$%·$%·$Y%·Y$Y$Y·%·Y$%Y·$Y%·$%Y·$%Y");
     //console.log(weatherContext.citySearch.find((c:any)=> topCities.push (c.LocalizedName )));
-    console.log(search);
+    //console.log(search);
     
-    console.log(topCities);
+   // console.log(topCities);
     
 
     weatherContext.setTopTenCities(...topCities, localizedName)
@@ -154,8 +158,14 @@ export default function SearchBar() {
     
   }
   
+  useEffect(() => {
+    //console.log(weatherContext.citySearch[keyFocus]?.LocalizedName)
+          //setSearch(weatherContext.citySearch[keyFocus]?.LocalizedName)   
+        weatherContext.setSearch(weatherContext.citySearch[keyFocus]?.LocalizedName)    
+  }, [keyFocus])
   
-  useEffect(() => console.log(weather), [weather]);
+  
+  //useEffect(() => console.log(weather), [weather]);
   
   let searchProps = {
     focused:focused,

@@ -51,8 +51,8 @@ export const getCurrentWeather = async (lat: number, lon: number, weatherState: 
       }
     )
 }
-export const getCurrentWeatherOff = async (cityName: string, weatherState: any, localState: any) => {
-  const APIURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${APIKEY}&lang=es`
+export const getCurrentWeatherOff = async (cityName: string,countryCode: string, weatherState: any, localState: any) => {
+  const APIURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName},${countryCode}&appid=${APIKEY}&lang=es`
   await axios.get(APIURL)
     .then(
       (response) => {
@@ -93,8 +93,8 @@ export const getForecastWeatherOff = async (lat: number, lon: number, weatherSta
       }
     )
 }
-export const getForecastWeather = async (cityName: string, weatherState: any, localState: any) => {
-  const APIURL_CITY = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${APIKEY}&lang=es`
+export const getForecastWeather = async (cityName: string,  countryCode: string, weatherState: any, localState: any) => {
+  const APIURL_CITY = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName},${countryCode}&appid=${APIKEY}&lang=es`
   axios.get(APIURL_CITY)
     .then(
       (response) => {

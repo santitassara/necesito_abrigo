@@ -53,6 +53,8 @@ export const getCurrentWeather = async (lat: number, lon: number, weatherState: 
 }
 export const getCurrentWeatherOff = async (cityName: string,countryCode: string, weatherState: any, localState: any) => {
   const APIURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName},${countryCode}&appid=${APIKEY}&lang=es`
+  console.log(countryCode);
+  
   await axios.get(APIURL)
     .then(
       (response) => {

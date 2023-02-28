@@ -5,30 +5,34 @@ import { useWeatherContext } from "../../context/weatherContext";
 
 
 export default function Footer(){
-  let cities:any = []
-  const [cityQueries, setCityQueries] = useState([])
-  const weatherContext = useWeatherContext();
+  // let cities:any = []
+  // const [cityQueries, setCityQueries] = useState([])
+  // const weatherContext = useWeatherContext();
   
-  //console.log(weatherContext?.topTenCities);
-  cities=[...cityQueries,weatherContext?.topTenCities]
-  //console.log(cities);
+  // console.log(weatherContext?.topTenCities);
+  // //cities=[...cityQueries,weatherContext?.topTenCities]
   
-  let prueba:any=[]
+  // let prueba:any=[]
+  
+  // //console.log(cities);
+  // cities.push(...cities,weatherContext?.topTenCities)
+  // console.log(cities);
 
-  //console.log(prueba=([...cities,prueba]));
+  // //console.log(cityQueries);
   
+  // //console.log(prueba=([...cities,prueba]));
   
-  useEffect(() => {
-    setCityQueries(cities);
+  // useEffect(() => {
+  //   setCityQueries(cities);
     
-  }, [weatherContext?.topTenCities])
+  // }, [weatherContext?.topTenCities])
   
 
-  //console.log(cityQueries);
+  // //console.log(cityQueries);
 
-  let findDuplicates = (arr: any[]) => arr?.filter((item, index) => arr?.indexOf(item) !== index)
+  // let findDuplicates = (arr: any[]) => arr?.filter((item, index) => arr?.indexOf(item) !== index)
 
-  //console.log(findDuplicates(cityQueries)) // All duplicates
+  // console.log(findDuplicates(cities)) // All duplicates
   
 
   return(

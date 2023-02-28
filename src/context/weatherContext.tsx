@@ -34,7 +34,7 @@ export const WeatherContextProvider = ({ children }: Props) =>{
     const [forecastWeatherData, setForecastWeatherData] = React.useState (Object || undefined);
     const [dailyWeatherData, setDailyWeatherData] = React.useState (Object || undefined);
     const [citySearch, setCitySearch] = React.useState (Array || undefined);
-    const [topTenCities, setTopTenCities] = React.useState ([]);
+    const [topTenCities, setTopTenCities] = React.useState ("");
     const [titleSearch, setTitleSearch]=React.useState("");
     
     return (

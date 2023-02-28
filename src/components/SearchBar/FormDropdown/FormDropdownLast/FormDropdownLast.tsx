@@ -18,7 +18,7 @@ export default function FormDropdown(searchProps:any){
           <div className={classes["navDropDown-lastContainer"]}>
             <div  className={classes["navDropDown-lastContainer-city"]}>
               <p className={classes["navDropDown-lastContainer-city-p"]}>{weatherContext?.currentWeatherData?.name}</p>
-              <p className={classes["navDropDown-lastContainer-city-p1"]}>{description?.charAt(0)?.toUpperCase() + description?.slice(1)}</p>  
+              <p className={classes["navDropDown-lastContainer-city-p1"]}>{weatherContext?.currentWeatherData?.weather && description?.charAt(0)?.toUpperCase() + description?.slice(1)}</p>  
             </div>
             <img className={classes["navDropDown-lastContainer-img"]} src={IconUrl} alt="IconImg"/>
             <p className={classes["navDropDown-lastContainer-deg"]} >{Math.round(convertToCelsius(feelsLike))}°</p>

@@ -22,7 +22,7 @@ export default function SearchBar() {
   const [focusedForClick, setFocusedForClick] = useState(false)
  
 
-
+  const [query, setQuery]:any = useState([])
 
 
   // const allMoviesData = moviesContext.moviesState
@@ -36,7 +36,7 @@ export default function SearchBar() {
     e.preventDefault()
     setSearch(e.target.value);
     weatherContext.setSearch(e.target.value);
-    console.log(weatherContext.citySearch);
+    //console.log(weatherContext.citySearch);
     //weatherContext.citySearch.city.name.filter((u:any)=>u.city.name === search)
     // console.log(search)
   }
@@ -51,9 +51,9 @@ export default function SearchBar() {
   const handleOnClick = () => {
     getForecastWeather(search,weatherContext.citySearch[keyFocus]?.Country.ID, weatherContext.setForecastWeatherData, weatherContext.setIsLocal);
     getCurrentWeatherOff(search, weatherContext.citySearch[keyFocus]?.Country.ID, weatherContext.setCurrentWeatherData, weatherContext.setIsLocal);
-    console.log("click");
+    //console.log("click");
     weatherContext.setForecastWeatherData(new Error());
-   // weatherContext.setTopTenCities([...weatherContext.search,weatherContext.search])
+    weatherContext.setTopTenCities([...weatherContext.search,weatherContext.search])
     setSearch("");
     setKeyFocus(-1)
 
@@ -71,7 +71,7 @@ export default function SearchBar() {
     getForecastWeather(cityName,  weatherContext.citySearch[keyFocus]?.Country.ID,weatherContext.setForecastWeatherData, weatherContext.setIsLocal);
     getCurrentWeatherOff(cityName, weatherContext.citySearch[keyFocus]?.Country.ID,  weatherContext.setCurrentWeatherData, weatherContext.setIsLocal);
     getDailyWeatherCity(weatherContext.currentWeatherData.coord.lat, weatherContext.currentWeatherData.coord.lon, weatherContext.setDailyWeatherData);
-    console.log("click");
+    //console.log("click");
     weatherContext.setCitySearch([])
     setSearch("");
     setFocusedForClick(true)
@@ -108,7 +108,7 @@ export default function SearchBar() {
       
       
       if(weatherContext.citySearch.length > 1){
-       console.log(weatherContext.citySearch?.length - 1 )
+       //console.log(weatherContext.citySearch?.length - 1 )
         setKeyFocus(c => (c < weatherContext.citySearch?.length - 1 ? c + 1 : c))
         //console.log(weatherContext.citySearch[keyFocus]);
         //console.log(keyFocus)
@@ -121,7 +121,7 @@ export default function SearchBar() {
      
      
      setKeyFocus(c => (c >= 0 && c <= weatherContext.citySearch.length ? c - 1 : c));
-     console.log(keyFocus)
+     //console.log(keyFocus)
      //setSearch(weatherContext.citySearch[keyFocus].LocalizedName)   
      setSearchAutocomplete(true)
    }
@@ -131,22 +131,39 @@ export default function SearchBar() {
 
       return
     }
-    let topCities: any[] = [];
-    const localizedName = weatherContext.citySearch?.find((c:any)=>  topCities.push(c.LocalizedName ));
-    //console.log(topCities);
-    //console.log(localizedName);
+    
     
     
     if (e.key === 'Enter') {
-      console.log(weatherContext.citySearch[keyFocus]?.Country?.ID);
+      let topCities: any[] = [];
+      const localizedName = weatherContext.citySearch?.find((c:any)=>  c.LocalizedName );
+      topCities.push(localizedName.LocalizedName)
       
-      if (keyFocus > -1){
+      let test: any = ""
+      test = localizedName.LocalizedName;
+      //const localizedName = weatherContext.citySearch?.find((c:any)=>  topCities.push(c.LocalizedName ));
+      //console.log(topCities);
+      //console.log(localizedName);
+      
+      
+      setQuery(test)
+      //test = [weatherContext.topTenCities, test];
+      console.log(test);
+      //topCities.push(...test,weatherContext.topTenCities)
+      //console.log(topCities);
+      weatherContext.setTopTenCities([...weatherContext.topTenCities,query])
+      
+      
+      
+      //console.log(weatherContext.citySearch[keyFocus]?.Country?.ID);
+      
+      
       getForecastWeather(searchAutocomplete  ? weatherContext.search : search, weatherContext.citySearch[keyFocus]?.Country.ID , weatherContext.setForecastWeatherData, weatherContext.setIsLocal);
       getCurrentWeatherOff(searchAutocomplete  ? weatherContext.search : search, weatherContext.citySearch[keyFocus]?.Country.ID , weatherContext.setCurrentWeatherData, weatherContext.setIsLocal);
       getDailyWeatherCity(weatherContext.currentWeatherData.coord.lat, weatherContext.currentWeatherData.coord.lon, weatherContext.setDailyWeatherData);
       setSearch("");
       weatherContext.setCitySearch([])
-      }
+      
       e.preventDefault();
     setKeyFocus(-1)
     //console.log("HEEEEEEEY·$%·$%·$Y%·Y$Y$Y·%·Y$%Y·$Y%·$%Y·$%Y");
@@ -156,7 +173,7 @@ export default function SearchBar() {
    // console.log(topCities);
     
 
-    weatherContext.setTopTenCities(...topCities, localizedName)
+   
     }
     
   }
@@ -165,10 +182,6 @@ export default function SearchBar() {
     //console.log(weatherContext.citySearch[keyFocus]?.LocalizedName)
           //setSearch(weatherContext.citySearch[keyFocus]?.LocalizedName)   
         weatherContext.setSearch(weatherContext.citySearch[keyFocus]?.LocalizedName)    
-        console.log(weatherContext.citySearch[keyFocus]?.LocalizedName);
-      
-        console.log(weatherContext?.citySearch[keyFocus]?.Country?.ID);
-        
        // const CountryCode = weatherContext.setSearch(weatherContext.citySearch[keyFocus]?.country.ID)    
   }, [keyFocus])
   
@@ -197,7 +210,12 @@ export default function SearchBar() {
    })
   }, [])
   
+useEffect(() => {
+  console.log(weatherContext.topTenCities);
   
+}, [weatherContext.topTenCities])
+
+
   return (
     <Form className={classes["Aform"]} >
       <ToastContainer />

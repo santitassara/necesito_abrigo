@@ -18,6 +18,8 @@ type WeatherContextType = {
     setCitySearch:any,
     topTenCities:any,
     setTopTenCities:any,
+    setGetTopTenCities:any,
+    getTopTenCities:any,
 }
 
 type Props = {
@@ -34,7 +36,8 @@ export const WeatherContextProvider = ({ children }: Props) =>{
     const [forecastWeatherData, setForecastWeatherData] = React.useState (Object || undefined);
     const [dailyWeatherData, setDailyWeatherData] = React.useState (Object || undefined);
     const [citySearch, setCitySearch] = React.useState (Array || undefined);
-    const [topTenCities, setTopTenCities] = React.useState ("");
+    const [topTenCities, setTopTenCities] = React.useState ();
+    const [getTopTenCities, setGetTopTenCities] = React.useState([])
     const [titleSearch, setTitleSearch]=React.useState("");
     
     return (
@@ -55,6 +58,8 @@ export const WeatherContextProvider = ({ children }: Props) =>{
             setCitySearch,
             topTenCities,
             setTopTenCities,
+            setGetTopTenCities,
+            getTopTenCities,
         }}>{children}</WeatherContext.Provider>
     )
 }

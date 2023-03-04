@@ -2,46 +2,54 @@ import { Link } from "react-router-dom"
 import React, { useEffect, useState } from "react"
 import classes from "../Footer/Footer.module.scss";
 import { useWeatherContext } from "../../context/weatherContext";
-
+import {getCities, updateTopCities} from "../../FireBaseData/fireBase"
+import {printObjectKeys} from "../../FireBaseData/utils"
 
 export default function Footer(){
-  // let cities:any = []
-  // const [cityQueries, setCityQueries] = useState([])
-  // const weatherContext = useWeatherContext();
-  
-  // console.log(weatherContext?.topTenCities);
-  // //cities=[...cityQueries,weatherContext?.topTenCities]
-  
-  // let prueba:any=[]
-  
-  // //console.log(cities);
-  // cities.push(...cities,weatherContext?.topTenCities)
-  // console.log(cities);
-
-  // //console.log(cityQueries);
-  
-  // //console.log(prueba=([...cities,prueba]));
-  
-  // useEffect(() => {
-  //   setCityQueries(cities);
+  let newValuesArray:string []= []
+  const weatherContext = useWeatherContext();
+  useEffect(() => {
     
-  // }, [weatherContext?.topTenCities])
+   getCities(weatherContext.setGetTopTenCities);
   
+   console.log(weatherContext.getTopTenCities);
+   
+  }, [])
+  
+  printObjectKeys(weatherContext.getTopTenCities,newValuesArray)
+  console.log(newValuesArray);
 
-  // //console.log(cityQueries);
-
-  // let findDuplicates = (arr: any[]) => arr?.filter((item, index) => arr?.indexOf(item) !== index)
-
-  // console.log(findDuplicates(cities)) // All duplicates
+  const mostFrequentN = (arr:any, n:any) => {
+    let counts:any = {};
+    let mostFrequent = [];
+  
+    // Loop through the array and count the occurrences of each value
+    for (let i = 0; i < arr.length; i++) {
+      let val = arr[i];
+      counts[val] = (counts[val] || 0) + 1;
+    }
+  
+    // Sort the counts in descending order and return the top n values
+    let sortedCounts = Object.entries(counts).sort((a:any, b:any) => b[1] - a[1]);
+    for (let i = 0; i < n && i < sortedCounts.length; i++) {
+      mostFrequent.push(sortedCounts[i][0]);
+    }
+  
+    return mostFrequent;
+  }
+  const MostRequestedCities = mostFrequentN(newValuesArray, 10);
+  
   
 
   return(
     <div className={classes["footerContainer"]} >
       <div>
-        <p>
+        <h5>
           Ciudades mas consultadas
-        </p>
-      <p></p>
+        </h5>
+      {MostRequestedCities.map((mRC:string)  => <p>
+        {mRC}
+      </p>) }
       </div>
       <div>
         <p>

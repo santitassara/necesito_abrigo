@@ -9,7 +9,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { getCurrentCity } from "../api/citiesApi";
 import classes from "./SearchBar.module.scss"
 import FormDropdown from "./FormDropdown/FormDropdown";
-
+import {storeTopCities, updateTopCities} from "../../FireBaseData/fireBase"
+ 
 export default function SearchBar() {
   
   const [search, setSearch] = useState("")
@@ -49,7 +50,7 @@ export default function SearchBar() {
 
   
   const handleOnClick = () => {
-    getForecastWeather(search,weatherContext.citySearch[keyFocus]?.Country.ID, weatherContext.setForecastWeatherData, weatherContext.setIsLocal);
+    getForecastWeather(search,weatherContext.citySearch[keyFocus]?.Country?.ID, weatherContext.setForecastWeatherData, weatherContext.setIsLocal);
     getCurrentWeatherOff(search, weatherContext.citySearch[keyFocus]?.Country.ID, weatherContext.setCurrentWeatherData, weatherContext.setIsLocal);
     //console.log("click");
     weatherContext.setForecastWeatherData(new Error());
@@ -150,9 +151,31 @@ export default function SearchBar() {
       //test = [weatherContext.topTenCities, test];
       console.log(test);
       //topCities.push(...test,weatherContext.topTenCities)
-      //console.log(topCities);
-      weatherContext.setTopTenCities([...weatherContext.topTenCities,query])
+      //console.log(weatherContext.topTenCities?.length > 0);
+      //console.log(weatherContext.topTenCities?.length > 1 && [...weatherContext.topTenCities ?? query, query]);
       
+      weatherContext.setTopTenCities([query, ...weatherContext.topTenCities ?? query])
+
+      console.log(weatherContext.topTenCities?.pop());
+      
+
+      const d = weatherContext.topTenCities && weatherContext.topTenCities;
+      console.log( weatherContext.topTenCities && d.shift());
+      
+
+      weatherContext.topTenCities && weatherContext.topTenCities.shift();
+
+      var result =  weatherContext.topTenCities?.filter((e:any )=> e.length);
+      console.log(result);
+      
+      var cityCount:any = {};
+      weatherContext?.topTenCities && result.forEach(function(i:any) {cityCount[i] = (cityCount[i]||0) + 1;});
+
+      
+      updateTopCities(result)
+      console.log(result);
+      //cityCount.shift()
+      //storeTopCities({name:test})
       
       
       //console.log(weatherContext.citySearch[keyFocus]?.Country?.ID);
@@ -172,7 +195,7 @@ export default function SearchBar() {
     
    // console.log(topCities);
     
-
+      
    
     }
     
@@ -211,9 +234,15 @@ export default function SearchBar() {
   }, [])
   
 useEffect(() => {
-  console.log(weatherContext.topTenCities);
+  var result =  weatherContext.topTenCities?.filter((e:any )=> e.length);
+  console.log(result);
   
-}, [weatherContext.topTenCities])
+  //weatherContext.topTenCities?.length > 1 && weatherContext.topTenCities?.pop()
+  console.log(query); 
+ 
+   
+  
+}, [weatherContext.topTenCities,])
 
 
   return (

@@ -1,15 +1,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Gajraj+One&family=Palanquin:wght@300&display=swap');
 
 
-.footerContainer{
+.footerContainer {
     font-family: 'Palanquin', sans-serif;
     display: flex;
     justify-content: space-evenly;
-    height: 20vh;
-    text-align:center;
+    height: 30vh;
+    text-align: center;
     color: rgb(0, 0, 0);
-    background-color:rgb(243, 243, 243);
-    margin:0em;
-    p { margin:0 !important; } 
-    box-shadow: 1em 3em 1em 2.8em rgba(0,0,0,0.1);
+    background-color: rgb(243, 243, 243);
+    margin: 0em;
+
+    box-shadow: 1em 3em 1em 2.8em rgba(0, 0, 0, 0.1);
+
+    &-mRC {
+        h5{
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+        &-parr {
+            margin-top: 2em;
+            display: flex;
+            flex-direction: column;
+            align-content: flex-start;
+            align-items: flex-start;
+
+            p {
+                margin: 0.1em !important;
+                font-size: 1em;
+                color: #337ab7;
+                
+                &:hover{
+                    text-decoration: underline;
+                    cursor:pointer;
+                  }
+            }
+        }
+    }
 }

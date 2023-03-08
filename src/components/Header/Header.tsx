@@ -13,7 +13,7 @@ export default function Header(){
 
   return(
     <>
-    <Navbar className={classes["headerContainer"]} expand="lg">
+    <Navbar sticky="top" className={classes["headerContainer"]} expand="lg">
       <Container fluid>
         <Navbar.Brand  className={classes["navLink"]} href="/"><img style={{height:"4em"}} src="./JacketIcon.png" alt='Jacket'/></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />

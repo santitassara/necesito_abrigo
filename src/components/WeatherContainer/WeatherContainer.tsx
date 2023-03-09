@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useWeatherContext } from '../../context/weatherContext';
-import { getCurrentWeather, getDailyWeatherOff, getForecastWeather, getForecastWeatherOff } from '../api/weatherApi';
+import { getCurrentWeather, getDailyWeatherOff,  getForecastWeatherOff } from '../api/weatherApi';
 import SpinnerComp from '../SpinnerComp/SpinnerComp';
 import WeatherCards from "../WeatherCards/WeatherCards"
 import classes from "../WeatherContainer/WeatherContainer.module.scss";
@@ -12,7 +12,7 @@ function WeatherContainer() {
   
   
     const weatherContext = useWeatherContext();
-    const local = weatherContext.isLocal;
+    //const local = weatherContext.isLocal;
     const weather = weatherContext.currentWeatherData;
    
     //const localWeather = weatherContext.localWeatherData  ;

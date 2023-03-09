@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 
 function ToastComponent() {
-  const [position, setPosition] = useState('top-start');
+
 
   return (
     <ToastContainer>

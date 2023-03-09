@@ -1,7 +1,3 @@
-import { useEffect, useState } from 'react';
-import Card from 'react-bootstrap/Card';
-import CardGroup from 'react-bootstrap/CardGroup';
-import { Weather } from '../../context/interfaces';
 import { useWeatherContext } from '../../context/weatherContext';
 import classes from "../WeatherCards/WeatherCards.module.scss";
 import YesContainer from '../YesContainer/YesContainer';
@@ -26,7 +22,7 @@ export default function WeatherCards(weather:any) {
   const needJacket = 18;
   const wind =  weather?.wind?.speed;
   //console.log(weather.rain)
-  const local = weatherContext.isLocal;
+  //const local = weatherContext.isLocal;
   //console.log(local);
   //console.log(weatherContext.currentWeatherData?.weather && weatherContext.currentWeatherData?.weather[0]);
   //console.log(weather.name);
@@ -39,7 +35,7 @@ export default function WeatherCards(weather:any) {
   
   const next6Hours = weatherContext?.forecastWeatherData.list  && weatherContext?.forecastWeatherData?.list[1]?.main;
   const next9Hours = weatherContext?.forecastWeatherData.list  && weatherContext?.forecastWeatherData?.list[2]?.main;
-  const tomorrow = weatherContext?.forecastWeatherData.list  && weatherContext?.forecastWeatherData?.list[3]?.main;
+  // const tomorrow = weatherContext?.forecastWeatherData.list  && weatherContext?.forecastWeatherData?.list[3]?.main;
   
   const tomorrowIcon = weatherContext?.dailyWeatherData.daily  && weatherContext?.dailyWeatherData.daily[1]?.weather[0]?.icon;
   const tomorrowDescription = weatherContext?.dailyWeatherData.daily  && weatherContext?.dailyWeatherData.daily[1]?.weather[0]?.description;

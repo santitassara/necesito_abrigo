@@ -1,11 +1,10 @@
-import { Link } from "react-router-dom"
-import React, { useEffect, useState } from "react"
+import { useEffect } from "react"
 import classes from "../Footer/Footer.module.scss";
 import { useWeatherContext } from "../../context/weatherContext";
-import { getCities, updateTopCities } from "../../FireBaseData/fireBase"
+import { getCities } from "../../FireBaseData/fireBase"
 import { printObjectKeys } from "../../FireBaseData/utils"
 import SpinnerComp from "../SpinnerComp/SpinnerComp";
-import { getCurrentWeather, getCurrentWeatherOff, getDailyWeatherCity, getForecastWeather } from "../api/weatherApi";
+import {  getCurrentWeatherOff, getDailyWeatherCity, getForecastWeather } from "../api/weatherApi";
 
 export default function Footer() {
   let newValuesArray: string[] = []

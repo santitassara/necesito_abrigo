@@ -52,6 +52,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-bootstrap": "^0.32.32"
+    "@types/react-bootstrap": "^0.32.32",
+    "sass": "^1.58.3"
   }
 }

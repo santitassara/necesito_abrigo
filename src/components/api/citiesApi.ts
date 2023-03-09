@@ -7,7 +7,7 @@ import axios from "axios";
 export const getCurrentCity = async (city:any, setCity:any)=>{
   //console.log(city);
 
-  await axios.get(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=682500PcukwQUtq1UDd6XimUfAmBA5HL&q=${city}`)
+  await axios.get(`https://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=682500PcukwQUtq1UDd6XimUfAmBA5HL&q=${city}`)
   .then(
     (response) => {
       //console.log(city);

@@ -28,7 +28,7 @@ export default function WeatherCards(weather:any) {
   //console.log(weather.name);
   const icon = weatherContext?.currentWeatherData?.weather && weatherContext?.currentWeatherData?.weather[0].icon
   const iconCode = icon;
-  const IconUrl = `http://openweathermap.org/img/w/${iconCode}.png`;
+  const IconUrl = `https://openweathermap.org/img/w/${iconCode}.png`;
   const description = weatherContext?.currentWeatherData?.weather && weatherContext?.currentWeatherData?.weather[0].description
 
   const next3Hours = weatherContext?.forecastWeatherData.list  && weatherContext?.forecastWeatherData?.list[0]?.main;
@@ -43,7 +43,7 @@ export default function WeatherCards(weather:any) {
   const tomorrowMinTemp =weatherContext?.dailyWeatherData.daily  && convertToCelsius(weatherContext?.dailyWeatherData.daily[1]?.temp.min);
   const tomorrowWind = weatherContext?.dailyWeatherData.daily  && weatherContext?.dailyWeatherData.daily[1]?.wind_speed;
   
-  const tomorrowIconUrl = `http://openweathermap.org/img/w/${tomorrowIcon}.png`;
+  const tomorrowIconUrl = `https://openweathermap.org/img/w/${tomorrowIcon}.png`;
   
   //console.log(convertToCelsius(Math.round(tomorrowTemp)) );
 

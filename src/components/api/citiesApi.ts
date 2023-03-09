@@ -1,6 +1,6 @@
 import axios from "axios";
-const APIKEY = "682500PcukwQUtq1UDd6XimUfAmBA5HL";
-const MY_APIKEY = "GUdRsBtRFFMN896Zt0f1Fciz6YLvdsUv"
+//const APIKEY = "682500PcukwQUtq1UDd6XimUfAmBA5HL";
+//const MY_APIKEY = "GUdRsBtRFFMN896Zt0f1Fciz6YLvdsUv"
               
 //http://dataservice.accuweather.com/locations/v1/cities/search
 

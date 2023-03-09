@@ -1,8 +1,8 @@
-import React from "react";
 
-interface IConvertToCelsius {
-  convertToCelsius: (temp: number) => number;
-}
+
+// interface IConvertToCelsius {
+//   convertToCelsius: (temp: number) => number;
+// }
 
 
 export const convertToCelsius = (temp:number) => {

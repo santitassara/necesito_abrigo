@@ -1,4 +1,4 @@
-import React from "react";
+
 import {Weather} from "../../context/interfaces"
 import { convertToCelsius } from '../WeatherCards/helper';
 import classes from "../YesContainer/YesContainer.module.scss";
@@ -9,7 +9,7 @@ import classes from "../YesContainer/YesContainer.module.scss";
 
 export default function YesContainer(WeatherDataProps:Weather){
 
-const {currentWeatherData, forecastWeatherData} = WeatherDataProps;
+const {currentWeatherData} = WeatherDataProps;
 
 //console.log(currentWeatherData?.main);
 //console.log(forecastWeatherData);

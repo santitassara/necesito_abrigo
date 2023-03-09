@@ -1,9 +1,6 @@
-import { Link } from "react-router-dom"
-import React, { useEffect, useState } from "react"
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import classes from "../Header/Header.module.scss"
 import SearchBar from "../SearchBar/SearchBar";
 
@@ -24,18 +21,6 @@ export default function Header(){
             navbarScroll
             
           >
-            {/* <Nav.Link href="#action1" className={classes["navLink"]}> </Nav.Link> */}
-            {/* <Nav.Link href="#action2" className={classes["navLink"]}>Link</Nav.Link> */}
-            {/* <NavDropdown title="Link"  id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action5">
-                Something else here
-              </NavDropdown.Item>
-            </NavDropdown> */}
           </Nav>
           <SearchBar/>
         </Navbar.Collapse>

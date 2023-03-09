@@ -1,20 +1,19 @@
 import { useWeatherContext } from "../../../context/weatherContext";
-import React from "react";
 import classes from "../../SearchBar/SearchBar.module.scss"
-import {convertToCelsius} from "../../WeatherCards/helper"
+
 import FormDropdownLast from "./FormDropdownLast/FormDropdownLast";
-import { useFetcher } from "react-router-dom";
+
 
 export default function FormDropdown(searchProps:any){
 
-  let {focused,handleOnAutocompleteClick, setFocused, keyFocus} = searchProps
+  let {focused,handleOnAutocompleteClick,keyFocus} = searchProps
 
   const weatherContext = useWeatherContext();
-  const icon = weatherContext?.currentWeatherData?.weather && weatherContext?.currentWeatherData?.weather[0].icon
-  const iconCode = icon;
-  const IconUrl = `http://openweathermap.org/img/w/${iconCode}.png`;
-  const description = weatherContext?.currentWeatherData?.weather && weatherContext?.currentWeatherData?.weather[0].description
-  const feelsLike = weatherContext?.currentWeatherData?.weather && weatherContext?.currentWeatherData?.main?.feels_like    
+  // const icon = weatherContext?.currentWeatherData?.weather && weatherContext?.currentWeatherData?.weather[0].icon
+  // const iconCode = icon;
+  // const IconUrl = `http://openweathermap.org/img/w/${iconCode}.png`;
+  // const description = weatherContext?.currentWeatherData?.weather && weatherContext?.currentWeatherData?.weather[0].description
+  // const feelsLike = weatherContext?.currentWeatherData?.weather && weatherContext?.currentWeatherData?.main?.feels_like    
 
 // useEffect(() => {
 //   const Key =weatherContext.citySearch?.Key

@@ -1,26 +1,27 @@
-import { Link } from "react-router-dom"
-import React, { useContext, useEffect, useRef, useState } from "react"
+
+import React, {  useEffect, useRef, useState } from "react"
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { getCurrentWeather, getCurrentWeatherOff, getDailyWeatherCity, getForecastWeather } from "../api/weatherApi";
+import {  getCurrentWeatherOff, getDailyWeatherCity, getForecastWeather } from "../api/weatherApi";
 import { useWeatherContext } from "../../context/weatherContext"
-import { toast, ToastContainer } from "react-toastify";
+import {  ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { getCurrentCity } from "../api/citiesApi";
 import classes from "./SearchBar.module.scss"
 import FormDropdown from "./FormDropdown/FormDropdown";
-import {storeTopCities, updateTopCities} from "../../FireBaseData/fireBase"
+import { updateTopCities} from "../../FireBaseData/fireBase"
  
 export default function SearchBar() {
   
   const [search, setSearch] = useState("")
 
-  const [weather, setWeather] = useState([]);
+  //const [weather, setWeather] = useState([]);
   //console.log(weather);
 
   const weatherContext = useWeatherContext();
   const [focused, setFocused] = useState(false)
   const [focusedForClick, setFocusedForClick] = useState(false)
+ console.log(focusedForClick);
  
 
   const [query, setQuery]:any = useState([])

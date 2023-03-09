@@ -7,7 +7,7 @@ export default function FormDropdown(searchProps:any){
   const weatherContext = useWeatherContext();
   const icon = weatherContext?.currentWeatherData?.weather && weatherContext?.currentWeatherData?.weather[0].icon
   const iconCode = icon;
-  const IconUrl = `http://openweathermap.org/img/w/${iconCode}.png`;
+  const IconUrl = `https://openweathermap.org/img/w/${iconCode}.png`;
   const description = weatherContext?.currentWeatherData?.weather && weatherContext?.currentWeatherData?.weather[0].description
   const feelsLike = weatherContext?.currentWeatherData?.weather && weatherContext?.currentWeatherData?.main?.feels_like
 

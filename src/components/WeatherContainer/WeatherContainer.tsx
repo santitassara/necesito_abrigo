@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useWeatherContext } from '../../context/weatherContext';
 import { getCurrentWeather, getDailyWeatherOff,  getForecastWeatherOff } from '../api/weatherApi';
 import SpinnerComp from '../SpinnerComp/SpinnerComp';
@@ -21,10 +21,19 @@ function WeatherContainer() {
     const search = weatherContext.search;
 
     
-    //console.log(weather.weather[0]);
-    //console.log(weather);
+    //console.log(weatherContext?.forecastWeatherData.list );
+    //console.log(weatherContext.forecastWeatherData.message);
+
+    const [notLocated, setNotLocated] = useState(false)
     
     useEffect(() => {
+      navigator.geolocation.watchPosition(function(position) {
+        console.log("i'm tracking you!");
+      },
+      function(error) {
+        if (error.code === error.PERMISSION_DENIED)
+        setNotLocated(true)
+      });
       if (navigator?.geolocation) {
         navigator.geolocation.getCurrentPosition((location) => {
           if (location) {
@@ -52,7 +61,7 @@ function WeatherContainer() {
       </div>
       <div className={classes["weatherContainer-cards"]} >
 
-        {!weatherContext?.forecastWeatherData.list ? weatherContext.forecastWeatherData.message  ? <ContainerError search={search}/> : <SpinnerComp/> : 
+        {!weatherContext?.forecastWeatherData.list ? weatherContext.forecastWeatherData.message || notLocated ? <ContainerError search={search}/> : <SpinnerComp/> : 
     
         <WeatherCards {...weather} />}
     </div>

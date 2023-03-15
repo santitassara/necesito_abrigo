@@ -157,24 +157,24 @@ export default function SearchBar() {
       
       weatherContext.setTopTenCities([query, ...weatherContext.topTenCities ?? query])
 
-      console.log(weatherContext.topTenCities?.pop());
+      //console.log(weatherContext.topTenCities?.pop());
       
 
       const d = weatherContext.topTenCities && weatherContext.topTenCities;
-      console.log( weatherContext.topTenCities && d.shift());
+      //console.log( weatherContext.topTenCities && d.shift());
       
 
       weatherContext.topTenCities && weatherContext.topTenCities.shift();
 
       var result =  weatherContext.topTenCities?.filter((e:any )=> e.length);
-      console.log(result);
+      //console.log(result);
       
       var cityCount:any = {};
       weatherContext?.topTenCities && result.forEach(function(i:any) {cityCount[i] = (cityCount[i]||0) + 1;});
 
       
       updateTopCities(result)
-      console.log(result);
+      //console.log(result);
       //cityCount.shift()
       //storeTopCities({name:test})
       
